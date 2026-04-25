@@ -22,31 +22,27 @@ function saveDB(data) {
 
 // fetch player (NO node-fetch needed)
 async function fetchPlayer(tag) {
-  try {
-    const cleanTag = encodeURIComponent(tag);
+  const cleanTag = encodeURIComponent(tag);
 
-    console.log("TAG:", tag);
-    console.log("CLEAN TAG:", cleanTag);
+  console.log("TAG RECEIVED:", tag);
+  console.log("CLEAN TAG:", cleanTag);
+  console.log("API KEY EXISTS:", !!API_KEY);
 
-    const res = await fetch(
-      `https://api.brawlstars.com/v1/players/${cleanTag}`,
-      {
-        headers: {
-          Authorization: `Bearer ${API_KEY}`
-        }
+  const res = await fetch(
+    `https://api.brawlstars.com/v1/players/${cleanTag}`,
+    {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`
       }
-    );
+    }
+  );
 
-    const text = await res.text();
-    console.log("API RESPONSE:", text);
+  const text = await res.text();
+  console.log("API RESPONSE:", text);
 
-    if (!res.ok) return null;
+  if (!res.ok) return null;
 
-    return JSON.parse(text);
-  } catch (err) {
-    console.log("FETCH ERROR:", err);
-    return null;
-  }
+  return JSON.parse(text);
 }
 
 // PL1 check
