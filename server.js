@@ -7,6 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 const API_KEY = process.env.API_KEY;
+console.log("API KEY LOADED:", !!API_KEY);
 const DB_FILE = "./db.json";
 
 // DB
@@ -24,9 +25,8 @@ async function fetchPlayer(tag) {
   try {
     const cleanTag = encodeURIComponent(tag);
 
-    console.log("TAG RECEIVED:", tag);
+    console.log("TAG:", tag);
     console.log("CLEAN TAG:", cleanTag);
-    console.log("API KEY EXISTS:", !!API_KEY);
 
     const res = await fetch(
       `https://api.brawlstars.com/v1/players/${cleanTag}`,
@@ -38,7 +38,7 @@ async function fetchPlayer(tag) {
     );
 
     const text = await res.text();
-    console.log("RAW API RESPONSE:", text);
+    console.log("API RESPONSE:", text);
 
     if (!res.ok) return null;
 
