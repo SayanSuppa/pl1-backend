@@ -24,6 +24,10 @@ async function fetchPlayer(tag) {
   try {
     const cleanTag = encodeURIComponent(tag);
 
+    console.log("TAG RECEIVED:", tag);
+    console.log("CLEAN TAG:", cleanTag);
+    console.log("API KEY EXISTS:", !!API_KEY);
+
     const res = await fetch(
       `https://api.brawlstars.com/v1/players/${cleanTag}`,
       {
@@ -33,15 +37,14 @@ async function fetchPlayer(tag) {
       }
     );
 
-    if (!res.ok) {
-      const text = await res.text();
-      console.log("API error:", text);
-      return null;
-    }
+    const text = await res.text();
+    console.log("RAW API RESPONSE:", text);
 
-    return await res.json();
+    if (!res.ok) return null;
+
+    return JSON.parse(text);
   } catch (err) {
-    console.log("Fetch error:", err);
+    console.log("FETCH ERROR:", err);
     return null;
   }
 }
