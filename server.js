@@ -23,7 +23,7 @@ function saveDB(data) {
 
 // fetch player from Brawl Stars API
 async function fetchPlayer(tag) {
-  const cleanTag = tag.replace("#", "%23");
+  const cleanTag = encodeURIComponent(tag);
 
   const res = await fetch(
     `https://api.brawlstars.com/v1/players/${cleanTag}`,
