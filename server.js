@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const API_KEY = "BSPL1-leaderboards";
+const API_KEY = process.env.API_KEY;
 const DB_FILE = "./db.json";
 
 // load db
